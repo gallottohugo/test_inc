@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   	@override
   	Widget build(BuildContext context) {
     	return MaterialApp(
-      		title: 'Test Inc.',
+      		title: 'Test Increase',
       		theme: ThemeData(
         		primarySwatch: Colors.blue,
         		visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -34,14 +34,23 @@ class _MyHomePageState extends State<MyHomePage> {
   	@override
   	Widget build(BuildContext context) {
     	return Scaffold(
-      		appBar: AppBar(title: Text('Test Inc.')),
-      		body: Center(
-        		child: Column(          
-          			mainAxisAlignment: MainAxisAlignment.center,
+      		appBar: AppBar(title: Text('Test Increase')),
+      		body: Column(          
+				crossAxisAlignment: CrossAxisAlignment.center,
           			children: <Widget>[
+						Container(
+							padding: EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+							child: Text('Para consumir los recursos del API y utilizar la aplicación se debe presionar el siguiente botón', textAlign: TextAlign.center, style: TextStyle(fontSize: 18),),
+						),
+						
 						_showProgress ? Center(child: CircularProgressIndicator() ) : Center(
 							child: RaisedButton(
-								child: Text('INICIAR APLICACIÓN'),
+								color: Colors.green,
+								textColor: Colors.white,
+								child: Container(
+									padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+									child: Text('INICIAR APLICACIÓN', style: TextStyle(fontSize: 18),)
+								),
 								onPressed: () async {
 									setState(() { _showProgress = true;});
 									TestProvider testProvider = TestProvider();
@@ -70,7 +79,6 @@ class _MyHomePageState extends State<MyHomePage> {
 							),
 						)
 					],
-        		),
       		),
     	);
   	}
