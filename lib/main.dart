@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:test_inc/src/models/footer_model.dart';
 import 'package:test_inc/src/pages/client_list_page.dart';
 import 'package:test_inc/src/providers/test_provider.dart';
+import 'package:test_inc/src/routes/routes.dart';
 
 void main() { runApp(MyApp()); }
 
@@ -14,6 +16,7 @@ class MyApp extends StatelessWidget {
         		visualDensity: VisualDensity.adaptivePlatformDensity,
       		),
 			debugShowCheckedModeBanner: false,
+			routes: ApplicationRoutes.getApplicationRoutes(),
       		home: MyHomePage(),
     	);
   	}
@@ -42,9 +45,27 @@ class _MyHomePageState extends State<MyHomePage> {
 								onPressed: () async {
 									setState(() { _showProgress = true;});
 									TestProvider testProvider = TestProvider();
-									await testProvider.getFile();
+									bool _response = await testProvider.getFile();
 									setState(() { _showProgress = false;});
-									//Navigator.pushNamed(context, ClientListPage.routeName);
+									if (_response == false){
+										return showDialog<void>(
+											context: context,
+											builder: (BuildContext context) {
+												return AlertDialog(
+													title: Text('Error'),
+													content: Text('Ocurrió un error, vuelva a intentarlo.'),
+													actions: <Widget>[
+														FlatButton(
+															child: Text('Ok'),
+															onPressed: () { Navigator.of(context).pop(); },
+														),
+													],
+												);
+											}
+										);
+									} else {
+										Navigator.pushNamed(context, ClientListPage.routeName);
+									}
 								},
 							),
 						)
