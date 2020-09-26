@@ -42,7 +42,7 @@ Proyecto Flutter.
 - Crear tests:
   - Unit Tests
   - Widget Tests
-  - Driven Tests
+  - Driver Tests
 
 ## Explicación de implementación
 La implementación consiste en una aplicacíón (proyecto Flutter).
