@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:test_inc/src/models/client_model.dart';
 import 'package:test_inc/src/models/footer_model.dart';
@@ -16,21 +17,10 @@ class TestProvider {
 			final response = await http.read(url,headers: { HttpHeaders.authorizationHeader: "Bearer $bearerToken"} );
 			if (response == null) { return false;} 
 			else {
-				
-				LineSplitter.split(response).forEach((line) {
-					if (line.substring(0,1) == "2"){ 
-						_loadTransaction(line);
-					}
-					if (line.substring(0,1) == "4"){ 
-						_loadFooter(line);
-						//set client id to transaction model
-						TransactionModel.listTransactions.where((t) => t.clientId == null).map((item) => item.clientId = FooterModel.listFooterModel.last.idCliente).toList();
-					}
-				});
+				_readLines(response:  response);
 			}
 			return true;
-		} catch (excep){ 
-			print(excep);
+		} catch (exception){ 
 			return false; 
 		}
 	}
@@ -57,8 +47,20 @@ class TestProvider {
 		
 	}
 
+	void _readLines({@required String response}){
+		LineSplitter.split(response).forEach((line) {
+			if (line.substring(0,1) == "2"){ 
+				_loadTransaction(transactionLine: line);
+			}
+			if (line.substring(0,1) == "4"){ 
+				_loadFooter(footerLine: line);
+				//set client id to transaction model
+				TransactionModel.listTransactions.where((t) => t.clientId == null).map((item) => item.clientId = FooterModel.listFooterModel.last.idCliente).toList();
+			}
+		});
+	}
 
-	void _loadFooter(String footerLine){
+	void _loadFooter({@required String footerLine}){
 		FooterModel _footerModel = new FooterModel();
 		_footerModel.tipoDeRegistro = int.parse(footerLine.substring(0,1));
 		_footerModel.reservado = footerLine.substring(1,16);
@@ -68,7 +70,7 @@ class TestProvider {
 		FooterModel.listFooterModel.add(_footerModel);
 	}
 
-	void _loadTransaction(String transactionLine){
+	void _loadTransaction({@required String transactionLine}){
 		TransactionModel _transactionModel = new TransactionModel();
 		_transactionModel.tipoDeRegistro = int.parse(transactionLine.substring(0,1));
 		_transactionModel.idTransaccion = transactionLine.substring(1,33);
