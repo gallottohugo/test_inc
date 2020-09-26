@@ -13,7 +13,7 @@ Proyecto Flutter.
 - [Instalar Flutter](https://flutter.dev/docs/get-started/install)
 
 ## Clonar
-- Clonar el repositorio en la máquina local usando `https://github.com/gallottohugo/test_inc.git`
+- Clonar el repositorio en la máquina local usando `git clone https://github.com/gallottohugo/test_inc.git`
 
 ## Setup
 - Ejecutar `flutter pub get` para instalar los paquetes utilizados
