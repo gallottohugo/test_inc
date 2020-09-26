@@ -36,8 +36,9 @@ Proyecto Flutter.
 - Realizar peticiones al servidor de manera automática.
 - Mejorar el manejo de excepciones.
 - Resolver el item `Dinero que los clientes cobraron y el dinero que van a cobrar`.
-- Mejorar el diseño.
 - Posibilidad de volver a consultar un cliente en particular cuando se cae el servidor.
+- Mejorar el diseño.
+- Formato moneda a los importes.
 
 ## Explicación de implementación
 La implementación consiste en una aplicacíón (proyecto Flutter).
@@ -45,3 +46,10 @@ Al presionar el botón `INICIAR APLICACIÓN` se realiza una petición al servido
 Luego se muestra un listado de los clientes con la posibilidad de ver la información completa de los mismos y el listado de transferencias que realizó.
 
 ## Video demostrativo
+![app test](https://img.youtube.com/vi/ujGjZVrvXDo/0.jpg)
+
+- [Link al video](https://www.youtube.com/watch?v=ujGjZVrvXDo)
+
+
+
+
