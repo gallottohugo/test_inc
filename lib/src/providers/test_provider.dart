@@ -1,53 +1,81 @@
 import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:test_inc/src/models/client_model.dart';
 import 'package:test_inc/src/models/footer_model.dart';
+import 'package:test_inc/src/models/transaction_model.dart';
 
 
 class TestProvider {
     static String server = "https://increase-transactions.herokuapp.com";
 	static String bearerToken = "1234567890qwertyuiopasdfghjklzxcvbnm";
 
-	Future<Map<String, dynamic>> getFile() async {
+	Future<bool> getFile() async {
 		try {
 			final url = '$server/file.txt';
 			final response = await http.read(url,headers: { HttpHeaders.authorizationHeader: "Bearer $bearerToken"} );
-			if (response != null) {
+			if (response == null) { return false;} 
+			else {
+				
 				LineSplitter.split(response).forEach((line) {
-					if (line.substring(0,1) == "4"){ _loadFooter(line);}
+					if (line.substring(0,1) == "2"){ 
+						_loadTransaction(line);
+					}
+					if (line.substring(0,1) == "4"){ 
+						_loadFooter(line);
+						//set client id to transaction model
+						TransactionModel.listTransactions.where((t) => t.clientId == null).map((item) => item.clientId = FooterModel.listFooterModel.last.idCliente).toList();
+					}
 				});
 			}
-			print("__________________________");
-			print(FooterModel.listFooterModel);
-		} catch (excep){
-			print("------");
+			return true;
+		} catch (excep){ 
 			print(excep);
-			print("------");
+			return false; 
 		}
 	}
 
 
-	Future<void> getClient(String id) async {
+	Future<ClientModel> getClient(String id) async {
+		ClientModel clientModel = new ClientModel();
 		try{
 			final url = '$server/clients/$id';
 			final response = await http.get(url, headers: { HttpHeaders.authorizationHeader: "Bearer $bearerToken"} );
 			String body = utf8.decode(response.bodyBytes);
 			final  decodedData = json.decode(body);
+			if (response.statusCode == 200) {
+				clientModel = new ClientModel.fromJson(decodedData);
+				return clientModel;
+			} else { 
+				clientModel.error = "Ocurrió un error con el servidor"; 
+				return clientModel;
+			}
 		} catch(exception){ 
-			
+			clientModel.error = "Ocurrió una excepción"; 
+			return clientModel;
 		}
 		
 	}
 
 
 	void _loadFooter(String footerLine){
-		FooterModel footerModel = new FooterModel();
-		footerModel.tipoDeRegistro = int.parse(footerLine.substring(0,1));
-		footerModel.reservado = footerLine.substring(1,16);
-		footerModel.fechaDePago = int.parse(footerLine.substring(16,24));
-		footerModel.idCliente =footerLine.substring(24,56);
-		print(footerModel);
-		FooterModel.listFooterModel.add(footerModel);
+		FooterModel _footerModel = new FooterModel();
+		_footerModel.tipoDeRegistro = int.parse(footerLine.substring(0,1));
+		_footerModel.reservado = footerLine.substring(1,16);
+		_footerModel.fechaDePago = int.parse(footerLine.substring(16,24));
+		_footerModel.idCliente =footerLine.substring(24,56);
+		print(_footerModel);
+		FooterModel.listFooterModel.add(_footerModel);
+	}
+
+	void _loadTransaction(String transactionLine){
+		TransactionModel _transactionModel = new TransactionModel();
+		_transactionModel.tipoDeRegistro = int.parse(transactionLine.substring(0,1));
+		_transactionModel.idTransaccion = transactionLine.substring(1,33);
+		_transactionModel.monto = int.parse(transactionLine.substring(33, 46)) / 100;
+		_transactionModel.reservado = transactionLine.substring(46, 51);
+		_transactionModel.tipo = int.parse(transactionLine.substring(51, 52));
+		TransactionModel.listTransactions.add(_transactionModel);
 	}
 
 }
