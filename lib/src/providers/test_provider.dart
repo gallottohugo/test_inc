@@ -16,9 +16,7 @@ class TestProvider {
 			final url = '$server/file.txt';
 			final response = await http.read(url,headers: { HttpHeaders.authorizationHeader: "Bearer $bearerToken"} );
 			if (response == null) { return false;} 
-			else {
-				_readLines(response:  response);
-			}
+			else { _readLines(response:  response); }
 			return true;
 		} catch (exception){ 
 			return false; 
@@ -49,9 +47,7 @@ class TestProvider {
 
 	void _readLines({@required String response}){
 		LineSplitter.split(response).forEach((line) {
-			if (line.substring(0,1) == "2"){ 
-				_loadTransaction(transactionLine: line);
-			}
+			if (line.substring(0,1) == "2"){  _loadTransaction(transactionLine: line); }
 			if (line.substring(0,1) == "4"){ 
 				_loadFooter(footerLine: line);
 				//set client id to transaction model
