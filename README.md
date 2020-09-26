@@ -39,6 +39,10 @@ Proyecto Flutter.
 - Posibilidad de volver a consultar un cliente en particular cuando se cae el servidor.
 - Mejorar el diseño.
 - Formato moneda a los importes.
+- Crear tests:
+  - Unit Tests
+  - Widget Tests
+  - Driven Tests
 
 ## Explicación de implementación
 La implementación consiste en una aplicacíón (proyecto Flutter).
