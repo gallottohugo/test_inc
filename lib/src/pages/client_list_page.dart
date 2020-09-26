@@ -10,6 +10,9 @@ class ClientListPage extends StatefulWidget {
 class _ClientListPageState extends State<ClientListPage> {
   	@override
   	Widget build(BuildContext context) {
-		return Scaffold();
+		return Scaffold(
+			appBar: AppBar(title: Text('Listado de clientes')),
+			body: Container(),
+		);
   	}
 }

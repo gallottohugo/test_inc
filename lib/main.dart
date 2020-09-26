@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_inc/src/pages/client_list_page.dart';
 
 void main() { runApp(MyApp()); }
 
@@ -30,7 +31,19 @@ class _MyHomePageState extends State<MyHomePage> {
   	Widget build(BuildContext context) {
     	return Scaffold(
       		appBar: AppBar(title: Text('Test Inc.')),
-      		body: Center(),
+      		body: Center(
+				child: RaisedButton(
+					child: Row(
+						children: [
+							Text('Iniciar aplicación'),
+							Icon(Icons.chevron_right)
+						],
+					),
+					onPressed: (){
+						Navigator.pushNamed(context, ClientListPage.routeName);
+					},
+				),
+			),
     	);
   	}
 }

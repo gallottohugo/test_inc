@@ -9,6 +9,9 @@ class ClientDetailPage extends StatefulWidget {
 class _ClientDetailPageState extends State<ClientDetailPage> {
   	@override
   	Widget build(BuildContext context) {
-    	return Scaffold();
+    	return Scaffold(
+			appBar: AppBar(title: Text('Detalle de cliente')),
+			body: Container(),
+		);
   	}
 }
