@@ -1,16 +1,47 @@
-# test_inc
+# TEST INCREASE
 
-A new Flutter project.
+Proyecto Flutter.
 
-## Getting Started
+## Versiones utilizadas
+- Flutter version 1.20.2
+- Framework revision bbfbf1770c, 2020-08-13 08:33:09
+- Engine revision 9d5b21729f
+- Dart version 2.9.1
 
-This project is a starting point for a Flutter application.
+## Instalación
+- [Instalar el SDK de Dart](https://dart.dev/get-dart)
+- [Instalar Flutter](https://flutter.dev/docs/get-started/install)
 
-A few resources to get you started if this is your first Flutter project:
+## Clonar
+- Clonar el repositorio en la máquina local usando `https://github.com/gallottohugo/test_inc.git`
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Setup
+- Ejecutar `flutter pub get` para instalar los paquetes utilizados
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Test
+- Android toolchain - Device (Android SDK version 29.0.0)
+- Platform android-30, build-tools 29.0.0
+
+---
+
+## Mejoras del examen
+- Explicar y brindar más información sobre los objetos (tablas) definidos. No se comprende del todo la relación entre los mismos y cómo obtener algunos resultados para dicho examen.
+
+## Mejoras en el API
+- Mejorar las condiciones del servidor, al enviar varias request al mismo tiempo el servidor se rompe y devuelve `Internal Server Error - Status 500`.
+- Retornar información en formato JSON.
+- Agregar claves externas en los objetos.
+
+## Mejoras en la solución
+- Realizar consultas al servidor de manera automática.
+- Mejorar el manejo de excepciones.
+- Resolver el item `<b>Dinero que los clientes cobraron y el dinero que van a cobrar</b>`.
+- Mejorar el diseño.
+- Posibilidad de volver a consultar un cliente en particular cuando se cae el servidor.
+
+## Explicación de implementación
+La implementación consiste en una aplicacíón (proyecto Flutter).
+Al presionar el botón comenzar consume el archivo obtenido del servidor almacenando las transferencias, clientes y su relación en una lista temporal.
+Luego se muestra un listado de los clientes con la posibilidad de ver la información completa de los mismos y el listado de transferencias que realizó.
+
+## Video demostrativo
