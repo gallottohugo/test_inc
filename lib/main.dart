@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
 									TestProvider testProvider = TestProvider();
 									await testProvider.getFile();
 									setState(() { _showProgress = false;});
-									Navigator.pushNamed(context, ClientListPage.routeName);
+									//Navigator.pushNamed(context, ClientListPage.routeName);
 								},
 							),
 						)

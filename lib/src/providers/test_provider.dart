@@ -1,7 +1,8 @@
-import 'dart:convert';
 import 'dart:io';
-
+import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:test_inc/src/models/footer_model.dart';
+
 
 class TestProvider {
     static String server = "https://increase-transactions.herokuapp.com";
@@ -11,8 +12,17 @@ class TestProvider {
 		try {
 			final url = '$server/file.txt';
 			final response = await http.read(url,headers: { HttpHeaders.authorizationHeader: "Bearer $bearerToken"} );
+			if (response != null) {
+				LineSplitter.split(response).forEach((line) {
+					if (line.substring(0,1) == "4"){ _loadFooter(line);}
+				});
+			}
+			print("__________________________");
+			print(FooterModel.listFooterModel);
 		} catch (excep){
-						
+			print("------");
+			print(excep);
+			print("------");
 		}
 	}
 
@@ -27,6 +37,17 @@ class TestProvider {
 			
 		}
 		
+	}
+
+
+	void _loadFooter(String footerLine){
+		FooterModel footerModel = new FooterModel();
+		footerModel.tipoDeRegistro = int.parse(footerLine.substring(0,1));
+		footerModel.reservado = footerLine.substring(1,16);
+		footerModel.fechaDePago = int.parse(footerLine.substring(16,24));
+		footerModel.idCliente =footerLine.substring(24,56);
+		print(footerModel);
+		FooterModel.listFooterModel.add(footerModel);
 	}
 
 }
